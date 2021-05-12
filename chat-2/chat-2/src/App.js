@@ -1,4 +1,15 @@
-import React from 'react'
+// // チャット機能
+
+
+import React, { useReducer } from 'react'
+
+import Login from './pages/Login'
+import SignUp from './pages/SignUp'
+import Room from './pages/Room'
+
+import { AuthProvider } from './AuthService'
+import LoggedInRoute from './LoggedInRoute'
+
 
 import {
     BrowserRouter as Router,
@@ -6,28 +17,21 @@ import {
     Route
 } from 'react-router-dom'
 
-import Login from './pages/Login'
-import SignUp from './pages/SignUp'
-import Room from './pages/Room'
-
-
-
 const App = () => {
     return (
-        <Router>
-            <Switch>
-                <Route exact path='/' component={Room} />
-                <Route exact path='/Login' component={Login} />
-                <Route exact path='/signup' component={SignUp} />
-            </Switch>
-        </Router>
+        <AuthProvider>
+            <Router>
+                <Switch>
+                    <LoggedInRoute exact path='/' component={Room} />
+                    <Route exact path='/login' component={Login} />
+                    <Route exact path='/signup' component={SignUp} />
+                </Switch>
+            </Router>
+        </AuthProvider>
+
     )
 }
 
 export default App
-
-
-
-
 
 
